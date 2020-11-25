@@ -1,4 +1,4 @@
-package com.example.holloworld
+package com.seunghwan.sayhello
 
 import org.junit.Test
 

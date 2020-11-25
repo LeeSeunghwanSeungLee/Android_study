@@ -1,4 +1,4 @@
-package com.example.holloworld
+package com.seunghwan.sayhello
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,8 +9,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnSay.setOnClickListner{
-            textSay.setText("Hollo Kotlin!!! by LSH")
-        }
+         btnSay.setOnClickListener {
+             textSay.setText("Hello 1st App & Kotlin ^<^")
+         }
     }
 }
