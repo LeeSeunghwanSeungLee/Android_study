@@ -1,8 +1,8 @@
 # Android_study
 
 -------------------------
-> 1. 안드로이드 - Hello World !! 
-> > Date : 2020-11-25
+ 1. 안드로이드 - Hello World !! 
+ Date : 2020-11-25
 ```
 ###KotlinX 해결방법
  bulild.gradle (project) 와 build.gradle(Module) 에 kotlinX plugin을 추가하면 된다.
@@ -10,8 +10,8 @@
 ```
 
 -------------------------
-> 2. 안드로이드 spinner && RecyclerView && Fragment 실슴
-> > Date : 2020-11-30
+ 2. 안드로이드 spinner && RecyclerView && Fragment 실슴
+ Date : 2020-11-30
 ```
 ### spinner ###
 - 여러개 값 중에서 하나를 선택할 수 있게 해주는 편리한 위젯
@@ -45,8 +45,8 @@
 
 ```
 ------------------------------
-> 3. MVVM 구조 패턴 공부
-> > Date : 2020-12-03
+ 3. MVVM 구조 패턴 공부
+ Date : 2020-12-03
 '''
 ### mvvn 패턴이란
 - 안드로이드 초보 개발자는 대부분 액티비티에 거의 모든 코드를 집어넣음
@@ -84,3 +84,71 @@
         * 직관적이고 편리하게 DB를 사용할 수 있게 도와줌
 
 '''
+-------------------
+4. MVVM 실습
+Date : 2020-12-03
+Title : 전화번호부 어플 제작 연습 // DB 연결은 전혀 없음 // Room으로 내부 저장소를 이용함
+'''
+- Contact.kt : 데이터 클래스 
+    1. asp.net으로 따지면 App.code 와 같다
+    2. PK 인지.. Default 값은 무엇인지 등 설정을 주석을 통해 선정함
+    3. Entity(~테이블) 을 만드는 것이라 생각하면 된다
+
+- ContactDao.kt : Data Access Class
+    1. SQL을 작성하기 위한 인터페이스라고 생각하면 된다
+    2. Query, Insert, Update, Delete 등의 어노테이션을 제공함
+    3. insert와 Update 에서는 onConflict 속성을 지정할 수 있다고 함
+    4. Livedata는 생명주기를 알고, 액티비티가 Start or Resume 되었을때 observer 객체에게 변화를 알려주고 onChanged 메소드가 실행되게 해준다
+
+- ContactDataBase.kt : 실질적으로 데이터베이스 인스턴스를 생성한 클래스로 RoomDatabase클래스를 상속
+    1. 클래스 이름 위에 @Database 어노테이션을 이용해 entity 정의 및 SQLite 버전 지정함
+    2. INSTANCE 가 실제로 Room Database에 저장하는, 즉 인스턴스화 하는 작업이다
+    3. 이것을 아래 Repository에서 호출해서 사용할 것임
+
+-  ContactRepository.kr : 리포지토리
+    1. Database // Dao // Contacts 를 각각 초기화해준다
+    2. ViewModel에서 DB에 접근을 요청할 때 수행하는 함수 getAll // insert // delete 를 생성
+    3. 위에 Rest와 관련된 것은 Dao.insert or Dao.delete를 사용하면 됨
+    4. 참고로 메인스레드로 Room DB에 접근하려고 하면 크래쉬가 발생한다고 한다..따라서 별도의 스레드를 이용하는 것을 추천한다
+
+-   ContactViewModel : 뷰모델
+    1. AndroidViewModel(application) 클래스를 상속받는다
+    2. 리포지토리와 거의 유사하다. Rest함수를 이용하기 위해 private val repository // Room 의 값들을 가져오기 위한 repository 를 생성한다
+
+
+- MainActivity.kt
+    1. ContactViewModel을 인스턴스화한다
+    2. 인스턴스화 한 것을 관찰한다
+
+
+
+
+    --------------------------
+    5. 세부 복습 
+    Date : 20-12-09
+    Title : Room Data base 와 리스트 만들기
+
+    - 리스트 뷰 만들기
+      1. 리스트 뷰의 5가지 요소들..
+        * 데이터 : 리스트 뷰를 보여줄 일관적인 규칙을 가진 데이터, 보통     
+          Repository && DB 와 연동하기도 한다
+        * 스크롤 영역 : 리스트들이 많아질 것을 대비
+        * 뷰 홀더 : 데이터가 반복 적용될 뷰 ( 1개를 만들어 놓고 데이터마다 
+          적용)
+        * 어댑터 : 데이터를 컨트롤 하는 역할
+        * 레이아웃 매니저 : 리스트 뷰의 레이아웃을 변경하는 것을 담당한다
+
+      2. 데이터 클래스를 만든다 - App_Code와 동일
+      3. MainActivity 에 (2) 에서 만든 클래스로 임시 List<Contacts> = listof 와 같이 샘플 데이터를 만든다
+      4. 리스트 뷰 레이아웃을 만든다
+      5. ViewHolder 를 담당하는 xml 과 클래스를 만든다 - 바인딩 해주는 역할
+      6. 자세한 내용 ref : https://dalgonakit.tistory.com/138?category=878274
+
+
+    
+
+
+    
+
+
+
